@@ -7,7 +7,7 @@ using namespace std;
 
 void polinomial();
 void racional();
-//void exponencial();
+void exponencial();
 void regraTrapezio();
 //float derivative();
 void methodChoice();
@@ -17,7 +17,7 @@ int menu();
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 int num_trap, decisao_main;
-float a, b, c, a2, b2, c2, height, x1, x2, root_value[2];
+float a, b, c, a2, b2, c2, height, x1, x2, root_value[2], delta;
 
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 int main(){
@@ -38,18 +38,16 @@ int main(){
         break;
 
     case 3:
-
-
+        exponencial();
         break;
 
     default: 
-    
+    cout<<"\n\n    Opcao invalida!\n";
+    menu();
     break;
 
     }
 
-
-    return 0;
 }
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 void regraTrapezio(){
@@ -60,45 +58,63 @@ void regraTrapezio(){
     cout<<"    Digite segundo  valor do intervalo: ";cin >> x2;
     height=x2-x1;
 
-   /* if(decisao_main==2){
-    roots();
+    if(decisao_main==2){
+        roots();
 
-    if(root_value[0])
+        if(a!=0 && delta>=0){
+            if(root_value[0]!=root_value[1]){
 
+                if(((root_value[0]>=x1&&root_value[0]<=x2)||(root_value[0]>=x2&&root_value[0]<=x1))||((root_value[1]>=x1&&root_value[1]<=x2)||(root_value[1]>=x2&&root_value[1]<=x1))){ 
+                    /* checking if there's a asymptote located inside of the interval*/
+                    cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
+                    menu();
+                }
+            }else if((root_value[0]==root_value[1])&&((root_value[0]>=x1&&root_value[0]<=x2)||(root_value[0]>=x2&&root_value[0]<=x1))){               
+
+                    cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
+                    menu();
+                
+            }
+        }else if((a==0)&&((root_value[0]>=x1&&root_value[0]<=x2)||(root_value[0]>=x2&&root_value[0]<=x1))){
+            cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
+            menu();
+        }
     }
-*/
+
 
     if(x1==x2){
         cout<<"\n    Os valores entrados resultam em uma integral = 0";
         menu();
     }
-
-        if(height<0){
-            height=height*(-1);
-        }
+    if(height<0){
+        height=height*(-1);
+    }
 
     if(num_trap==1){
 
         switch(decisao_main){
 
-            case 1:
+            case 1: /* Polinomial */
                 integral = (((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c))) * (height / 2);
                 cout<<"    integral = "<<integral;
                 menu();
 
             break;
 
-            case 2:
+            case 2: /* Racional */
+                integral = ((((a*pow(x1,2))+(b*x1)+(c))/((a2*pow(x1,2))+(b2*x1)+(c2)))+(((a*pow(x2,2))+(b*x2)+(c))/((a2*pow(x2,2))+(b2*x2)+(c2)))) * (height / 2);
+                cout<<"    integral = "<<integral;
+                menu();
 
+            break;
 
+            case 3: /* Exponencial */
 
             break;
 
 
-
-
         }
-    }else{
+    }else{/* ESPACO PARA TRAPEZIO REPETIDO */
 
 
 
@@ -135,7 +151,7 @@ void polinomial(){
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 void racional(){
 
-    cout<<"\n\n |=====================================|\n |Para funcoes racionais ate segundo grau|\n |    Para 1  grau  comece com  a = 0    |"<<endl<<endl;
+    cout<<"\n\n |=======================================|\n |Para funcoes racionais ate segundo grau|\n |    Para 1  grau  comece com  a = 0    |"<<endl<<endl;
 
 	cout<<"\n    Dividendo:\n\n";
     cout<<"    Digite valor de a: ";cin >> a;
@@ -158,6 +174,22 @@ void racional(){
 	}
 
     methodChoice();
+
+}
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+void exponencial(){
+
+    cout<<"\n\n |====================================|\n";
+	cout<<" |      Para funcoes exponenciais      |\n\n    vamos usar:\n\n    f(x) = ('a' vezes 'e' elevado a ('b'vezes 'x')) mais 'c' "<<"\n    f(x) = (a*e^(bx))+c ";
+	
+	cout<<"\n\n    Digite valor de a: ";cin >> a;
+    cout<<"    Digite valor de b: ";cin >> b;
+    cout<<"    Digite valor de c: ";cin >> c;
+
+    if(a==0&&c==0){
+        cout<<"\n    Os valores entrados resultam em uma integral = 0";
+        menu();
+    }
 
 }
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -206,14 +238,15 @@ void methodChoice(){
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 void roots(){
 
-if(a2!=0){
-    root_value[0] = ((0-b2) - sqrt(pow(b2,2)-(4*a2*c2)))/(2*a2);
-    root_value[1] = ((0-b2) + sqrt(pow(b2,2)-(4*a2*c2)))/(2*a2);
-
-}else{
-    root_value[0] = (0-c2)/b2;
-
-}
+    if(a2!=0){
+        delta= pow(b2,2)-(4*a2*c2);
+        if(delta>=0){
+            root_value[0] = ((0-b2) - sqrt(delta))/(2*a2);
+            root_value[1] = ((0-b2) + sqrt(delta))/(2*a2);
+        }
+    }else{
+        root_value[0] = (0-c2)/b2;
+    }
 
 }
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
