@@ -52,7 +52,7 @@ int main(){
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 void regraTrapezio(){
 
-    float integral;
+    float integral, sum_of_fx=0, x_values;
 
     cout<<"\n    Digite primeiro valor do intervalo: ";cin >> x1;
     cout<<"    Digite segundo  valor do intervalo: ";cin >> x2;
@@ -108,13 +108,47 @@ void regraTrapezio(){
 
             break;
 
-            case 3: /* Exponencial */
+            case 3: /* Exponencial f(x) = (a*e^(bx))+c */
+                integral = (((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*(height/2);
+                cout<<"    integral = "<<integral;
+                menu();
 
             break;
 
 
         }
     }else{/* ESPACO PARA TRAPEZIO REPETIDO */
+        
+        if(x1>x2){
+            x2=x1+x2;
+            x1=x2-x1;
+            x2=x2-x1;
+            }
+
+        switch(decisao_main){
+
+            case 1: /* Polinomial */
+
+                for(int i=1; i<num_trap; i++ ){
+                   x_values = (i*(height/num_trap))+x1;
+                   sum_of_fx = ((a*pow(x_values,2))+(b*x_values)+(c)) + sum_of_fx;
+                }
+
+                integral = ((2*sum_of_fx)+((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c)))*((height/num_trap)/2);
+                cout<<"    integral = "<<integral;
+                menu();
+
+            break;
+
+            case 2: /* Racional */
+                
+
+            break;
+
+            case 3: /* Exponencial f(x) = (a*e^(bx))+c */
+                
+
+            break;
 
 
 
@@ -122,6 +156,7 @@ void regraTrapezio(){
 
 
 
+        }
 
 
     }
@@ -190,37 +225,38 @@ void exponencial(){
         cout<<"\n    Os valores entrados resultam em uma integral = 0";
         menu();
     }
-
+    methodChoice();
 }
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 void methodChoice(){
 
-    char method[2];
+    char method;
 
-    cout<<"\n    Qual metodo Voce quer usar?\n\n    |    Trapezio     | = T\n    |Trapezio Repetido| = TR \n\n    ---> "; cin>>method[2];
+    cout<<"\n    Qual metodo Voce quer usar?\n\n    |    Trapezio     | = T\n    |Trapezio Repetido| = R \n\n    ---> "; cin>>method;
 
-    method[2] = toupper(method[2]);
+    method = toupper(method);
 
-    switch(method[2]){
+    switch(method){
 
         case 'T':
 
             num_trap=1;
-
+            cout<<"\n    Voce escolheu metodo do Trapezio\n";
             regraTrapezio();
 
             break;
 
-        case 'TR':
+        case 'R':
 
-            cout<<"    Digite numero de trapezeis: ";cin >> num_trap;
+            cout<<"\n    Voce escolheu metodo do Trapezio Repetido\n";
+            cout<<"\n    Digite numero de trapezeis: ";cin >> num_trap;
 
             while(num_trap<=0){
                 
-                cout<<"    Numero de trapezeis invalido (escolha um numero > 0)\n";
+                cout<<"\n    Numero de trapezeis invalido (escolha um numero > 0)\n";
 
-                cout<<"    Digite numero de trapezeis: ";cin >> num_trap;
+                cout<<"\n    Digite numero de trapezeis: ";cin >> num_trap;
 
             }
 
@@ -230,7 +266,7 @@ void methodChoice(){
 
         default:
 
-            cout<<"    opcao nao valiva";
+            cout<<"\n    opcao nao valiva";
             methodChoice();
     }
 
