@@ -1,17 +1,16 @@
 #include<iostream>
 #include<math.h>
-#include<locale.h>
 #include<stdlib.h>
 
 using namespace std;
 
+void regraTrapezio();
 void polinomial();
 void racional();
 void exponencial();
-void regraTrapezio();
-//float derivative();
 void methodChoice();
 void roots();
+//float derivative();
 int menu();
 
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -24,8 +23,9 @@ int main(){
 
 // 1 funcoes afim ou quadratica | 2 funcao racional | 3 funcao exponencial
 
-
-    cout<<"\n    Funcoes afim ou Quadratica | 1 |\n    Funcao Racional            | 2 |\n    Funcao Exponencial         | 3 |\n\n    ---> "; cin>>decisao_main;
+    cout<<"\n\n |=====================================|\n |          Regra do Trapezio          |\n |         e Trapezio Repetido         |\n";
+    cout<<" |=====================================|"<<endl;
+    cout<<"\n    Funcoes Afim ou Quadratica | 1 |\n    Funcao Racional            | 2 |\n    Funcao Exponencial         | 3 |\n\n    ---> "; cin>>decisao_main;
 
     switch(decisao_main){
 
@@ -42,7 +42,7 @@ int main(){
         break;
 
     default: 
-    cout<<"\n\n    Opcao invalida!\n";
+    cout<<"\n\n    Opcao Invalida!\n";
     menu();
     break;
 
@@ -90,7 +90,7 @@ void regraTrapezio(){
         height=height*(-1);
     }
 
-    if(num_trap==1){
+    if(num_trap==1){/* REGRA DO TRAPEZIO*/
 
         switch(decisao_main){
 
@@ -108,16 +108,16 @@ void regraTrapezio(){
 
             break;
 
-            case 3: /* Exponencial f(x) = (a*e^(bx))+c */
+            case 3: /* Exponencial */
                 integral = (((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*(height/2);
                 cout<<"    integral = "<<integral;
                 menu();
 
             break;
 
-
         }
-    }else{/* ESPACO PARA TRAPEZIO REPETIDO */
+
+    }else{/* REGRA TRAPEZIO REPETIDO */
         
         if(x1>x2){
             x2=x1+x2;
@@ -142,25 +142,33 @@ void regraTrapezio(){
 
             case 2: /* Racional */
                 
+                for(int i=1; i<num_trap; i++ ){
+                   x_values = (i*(height/num_trap))+x1;
+                   sum_of_fx = (((a*pow(x_values,2))+(b*x_values)+(c))/((a2*pow(x_values,2))+(b2*x_values)+(c2))) + sum_of_fx;
+                }
+
+                integral = ((2*sum_of_fx) + (((a*pow(x1,2))+(b*x1)+(c))/((a2*pow(x1,2))+(b2*x1)+(c2))) + (((a*pow(x2,2))+(b*x2)+(c))/((a2*pow(x2,2))+(b2*x2)+(c2)))) * ((height/num_trap)/2);
+                cout<<"    integral = "<<integral;
+                menu();
 
             break;
 
-            case 3: /* Exponencial f(x) = (a*e^(bx))+c */
+            case 3: /* Exponencial */
                 
+                for(int i=1; i<num_trap; i++ ){
+                   x_values = (i*(height/num_trap))+x1;
+                   sum_of_fx = (((a*exp(b*x_values))+c)) + sum_of_fx;
+                }
+
+                integral = ((2*sum_of_fx)+  ((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*((height/num_trap)/2);
+                cout<<"    integral = "<<integral;
+                menu();
 
             break;
-
-
-
-
-
-
 
         }
 
-
     }
-
 
 }
 
@@ -215,7 +223,7 @@ void racional(){
 void exponencial(){
 
     cout<<"\n\n |====================================|\n";
-	cout<<" |      Para funcoes exponenciais      |\n\n    vamos usar:\n\n    f(x) = ('a' vezes 'e' elevado a ('b'vezes 'x')) mais 'c' "<<"\n    f(x) = (a*e^(bx))+c ";
+	cout<<" |      Para funcoes exponenciais     |\n\n    vamos usar:\n\n    f(x) = ('a' vezes 'e' elevado a ('b'vezes 'x')) mais 'c' "<<"\n    f(x) = (a*e^(bx))+c ";
 	
 	cout<<"\n\n    Digite valor de a: ";cin >> a;
     cout<<"    Digite valor de b: ";cin >> b;
