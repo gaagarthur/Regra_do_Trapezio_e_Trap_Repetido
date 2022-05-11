@@ -10,7 +10,7 @@ void racional();
 void exponencial();
 void methodChoice();
 void roots();
-//float derivative();
+float derivative_and_error();
 int menu();
 
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -52,11 +52,14 @@ int main(){
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 void regraTrapezio(){
 
-    float integral, sum_of_fx=0, x_values;
+    float integral, sum_of_fx=0, x_values, relative_error, real_integral_value;
 
     cout<<"\n    Digite primeiro valor do intervalo: ";cin >> x1;
     cout<<"    Digite segundo  valor do intervalo: ";cin >> x2;
     height=x2-x1;
+
+    cout<<"\n    Digite o valor real da integral: ";cin >> real_integral_value;
+    
 
     if(decisao_main==2){
         roots();
@@ -136,6 +139,7 @@ void regraTrapezio(){
 
                 integral = ((2*sum_of_fx)+((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c)))*((height/num_trap)/2);
                 cout<<"    integral = "<<integral;
+                //cout<<endl<<derivative_and_error();
                 menu();
 
             break;
@@ -294,10 +298,48 @@ void roots(){
 
 }
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+float derivative_and_error(){
+
+    float error_abs, error_study_T, error_study_TR, deriv;
+
+    switch(decisao_main){
+
+            case 1:
+            //  f(x)=  .5*x^2 + 6*x  +  5 --->  f'(x)=  1*x  +  6 ---> f"(x)=  1 ||||||  f(x)= 2x - 3  ---> f'(x)= 2 ---> f"(x)= 0
+
+                if(a!=0){
+
+                    if(num_trap==1){
+                        
+                        error_study_T = (pow(x2-x1,3)/12)*(a*2);
+
+                    }else{
+
+                        error_study_TR = (pow(x2-x1,3)/(12*num_trap))*(a*2);
+
+                    }
+
+                }else{
+
+                
+            }
+                
+
+            break;
+
+
+
+
+
+    }
+
+
+}
+//000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 int menu(){
 
     char opera;
-    cout<<"\n    Deseja realizar outra operacao?\n\n           |Sim = S|    |Nao = N|"; cin>>opera;
+    cout<<"\n    Deseja realizar outra operacao?\n\n           |Sim = S|    |Nao = N|\n\n    ---> "; cin>>opera;
 
     opera=toupper(opera);
     switch(opera){
