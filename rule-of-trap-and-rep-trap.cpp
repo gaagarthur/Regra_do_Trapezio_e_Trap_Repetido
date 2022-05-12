@@ -1,6 +1,7 @@
 #include<iostream>
 #include<math.h>
 #include<stdlib.h>
+#include<iomanip>
 
 using namespace std;
 
@@ -21,7 +22,6 @@ float a, b, c, a2, b2, c2, height, x1, x2, root_value[2], delta;
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 int main(){
 
-// 1 funcoes afim ou quadratica | 2 funcao racional | 3 funcao exponencial
 
     cout<<"\n\n |=====================================|\n |          Regra do Trapezio          |\n |         e Trapezio Repetido         |\n";
     cout<<" |=====================================|"<<endl;
@@ -42,9 +42,8 @@ int main(){
         break;
 
     default: 
-    cout<<"\n\n    Opcao Invalida!\n";
+    //cout<<"\n\n    Opcao Invalida!\n";
     menu();
-    break;
 
     }
 
@@ -52,7 +51,7 @@ int main(){
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 void regraTrapezio(){
 
-    float integral, sum_of_fx=0, x_values, relative_error, real_integral_value;
+    float integral, sum_of_fx=0, x_values, real_integral_value, foreseen_erro, abs_error;
 
     cout<<"\n    Digite primeiro valor do intervalo: ";cin >> x1;
     cout<<"    Digite segundo  valor do intervalo: ";cin >> x2;
@@ -92,6 +91,11 @@ void regraTrapezio(){
     if(height<0){
         height=height*(-1);
     }
+     if(x1>x2){
+        x2=x1+x2;
+        x1=x2-x1;
+        x2=x2-x1;
+        }
 
     if(num_trap==1){/* REGRA DO TRAPEZIO*/
 
@@ -99,34 +103,39 @@ void regraTrapezio(){
 
             case 1: /* Polinomial */
                 integral = (((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c))) * (height / 2);
-                cout<<"    integral = "<<integral;
-                menu();
+                cout<<"\n    integral = "<<integral;
+                //menu();
 
             break;
 
             case 2: /* Racional */
                 integral = ((((a*pow(x1,2))+(b*x1)+(c))/((a2*pow(x1,2))+(b2*x1)+(c2)))+(((a*pow(x2,2))+(b*x2)+(c))/((a2*pow(x2,2))+(b2*x2)+(c2)))) * (height / 2);
-                cout<<"    integral = "<<integral;
-                menu();
+                cout<<"\n    integral = "<<integral;
+                //menu();
 
             break;
 
             case 3: /* Exponencial */
                 integral = (((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*(height/2);
-                cout<<"    integral = "<<integral;
-                menu();
+                cout<<"\n    integral = "<<integral;
+                //menu();
 
             break;
 
         }
+        cout<<"\n    Integral = "<<integral;
+
+
+        cout<<fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
+
+        abs_error=integral-real_integral_value;
+        cout<<"\n    Erro Absoluto = "<<abs_error;      
+                
+        cout<<defaultfloat<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+        menu();
 
     }else{/* REGRA TRAPEZIO REPETIDO */
         
-        if(x1>x2){
-            x2=x1+x2;
-            x1=x2-x1;
-            x2=x2-x1;
-            }
 
         switch(decisao_main){
 
@@ -136,11 +145,18 @@ void regraTrapezio(){
                    x_values = (i*(height/num_trap))+x1;
                    sum_of_fx = ((a*pow(x_values,2))+(b*x_values)+(c)) + sum_of_fx;
                 }
-
+                
                 integral = ((2*sum_of_fx)+((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c)))*((height/num_trap)/2);
-                cout<<"    integral = "<<integral;
-                //cout<<endl<<derivative_and_error();
-                menu();
+                /*cout<<"\n    Integral = "<<integral;
+                
+                foreseen_erro = derivative_and_error();
+                cout<<"\n    Erro Previsto <= "<<foreseen_erro;
+
+                abs_error=integral-real_integral_value;
+                cout<<"\n    Erro Absoluto = "<<abs_error;      
+                
+                cout<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+                menu();*/
 
             break;
 
@@ -150,10 +166,18 @@ void regraTrapezio(){
                    x_values = (i*(height/num_trap))+x1;
                    sum_of_fx = (((a*pow(x_values,2))+(b*x_values)+(c))/((a2*pow(x_values,2))+(b2*x_values)+(c2))) + sum_of_fx;
                 }
+                foreseen_erro = derivative_and_error();
 
                 integral = ((2*sum_of_fx) + (((a*pow(x1,2))+(b*x1)+(c))/((a2*pow(x1,2))+(b2*x1)+(c2))) + (((a*pow(x2,2))+(b*x2)+(c))/((a2*pow(x2,2))+(b2*x2)+(c2)))) * ((height/num_trap)/2);
-                cout<<"    integral = "<<integral;
-                menu();
+                /*cout<<"\n    Integral = "<<integral;
+
+                cout<<"\n    Erro Previsto <= "<<foreseen_erro;
+
+                abs_error=integral-real_integral_value;
+                cout<<fixed<<"\n    Erro Absoluto = "<<abs_error;      
+                
+                cout<<defaultfloat<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+                menu();*/
 
             break;
 
@@ -163,14 +187,34 @@ void regraTrapezio(){
                    x_values = (i*(height/num_trap))+x1;
                    sum_of_fx = (((a*exp(b*x_values))+c)) + sum_of_fx;
                 }
+                foreseen_erro = derivative_and_error();
 
                 integral = ((2*sum_of_fx)+  ((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*((height/num_trap)/2);
-                cout<<"    integral = "<<integral;
-                menu();
+                /*cout<<"\n    Integral = "<<integral;
+
+
+                cout<<fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
+
+                abs_error=integral-real_integral_value;
+                cout<<"\n    Erro Absoluto = "<<abs_error;      
+                
+                cout<<defaultfloat<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+                menu();*/
 
             break;
 
         }
+
+            cout<<"\n    Integral = "<<integral;
+
+
+            cout<<fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
+
+            abs_error=integral-real_integral_value;
+            cout<<"\n    Erro Absoluto = "<<abs_error;      
+                
+            cout<<defaultfloat<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+            menu();
 
     }
 
@@ -300,46 +344,71 @@ void roots(){
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 float derivative_and_error(){
 
-    float error_abs, error_study_T, error_study_TR, deriv;
+    float error_abs, error_study, deriv, x_for_max_fx, gx;
 
     switch(decisao_main){
 
-            case 1:
-            //  f(x)=  .5*x^2 + 6*x  +  5 --->  f'(x)=  1*x  +  6 ---> f"(x)=  1 ||||||  f(x)= 2x - 3  ---> f'(x)= 2 ---> f"(x)= 0
+            case 1://  for a!=0 --> f"(x)=  a*2       for a==0 ---> f"(x)= 0            
 
                 if(a!=0){
+                    error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*(a*2);
+                    return error_study;
+                    
+                }else{
+                    error_study=0;
+                    return error_study;               
+                }
+                
+            break;
 
-                    if(num_trap==1){
-                        
-                        error_study_T = (pow(x2-x1,3)/12)*(a*2);
 
-                    }else{
+            case 2: //
 
-                        error_study_TR = (pow(x2-x1,3)/(12*num_trap))*(a*2);
+                if((a!=0&&a2!=0) || (a==0&&a2!=0) || (a!=0&&a2==0)){
+                    cout<<"\n    Este programa nao e capaz de realizar o calculo de f\"(x)";
+                    cout<<"\n    Insira o valor de f\"(x) em que x resulte no maior |f(x)|\n\n    ---> ";cin>>deriv; //verify if is supposed to be the max fx or |fx|
 
+                    if(deriv<0){
+                        deriv=deriv*-1;
                     }
 
-                }else{
+                    error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*deriv;
+                    return error_study;
+                    
+                }else{// a==0 && a2==0 (f'*g-g'*f)/()
+                    cout<<"\n    Insira o valor de x que resulte no maior |f(x)| dentro do intervalo\n\n    ---> ";cin>>x_for_max_fx;
 
-                
-            }
-                
+                    gx = (b2*x_for_max_fx)+c2; 
+                    deriv = ((b*c2) - (b2*c)) / pow(gx,2); 
+
+                    error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*deriv;
+                    return error_study;
+                }
 
             break;
 
 
+            case 3:
 
+                if(a==0||b==0){
+                    deriv =0;
+                }else if(a!=0 && b!=0){
+                    cout<<"\n    Insira o valor de x que resulte no maior |f(x)| dentro do intervalo\n\n    ---> ";cin>>x_for_max_fx;
+                    deriv = (a*b*b)*exp(b*x_for_max_fx);
+                }
+                error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*deriv;
+                return error_study;
 
+            break;
 
     }
-
 
 }
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 int menu(){
 
     char opera;
-    cout<<"\n    Deseja realizar outra operacao?\n\n           |Sim = S|    |Nao = N|\n\n    ---> "; cin>>opera;
+    cout<<"\n\n    Deseja realizar outra operacao?\n\n           |Sim = S|    |Nao = N|\n\n    ---> "; cin>>opera;
 
     opera=toupper(opera);
     switch(opera){
