@@ -147,16 +147,6 @@ void regraTrapezio(){
                 }
                 
                 integral = ((2*sum_of_fx)+((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c)))*((height/num_trap)/2);
-                /*cout<<"\n    Integral = "<<integral;
-                
-                foreseen_erro = derivative_and_error();
-                cout<<"\n    Erro Previsto <= "<<foreseen_erro;
-
-                abs_error=integral-real_integral_value;
-                cout<<"\n    Erro Absoluto = "<<abs_error;      
-                
-                cout<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
-                menu();*/
 
             break;
 
@@ -169,15 +159,6 @@ void regraTrapezio(){
                 foreseen_erro = derivative_and_error();
 
                 integral = ((2*sum_of_fx) + (((a*pow(x1,2))+(b*x1)+(c))/((a2*pow(x1,2))+(b2*x1)+(c2))) + (((a*pow(x2,2))+(b*x2)+(c))/((a2*pow(x2,2))+(b2*x2)+(c2)))) * ((height/num_trap)/2);
-                /*cout<<"\n    Integral = "<<integral;
-
-                cout<<"\n    Erro Previsto <= "<<foreseen_erro;
-
-                abs_error=integral-real_integral_value;
-                cout<<fixed<<"\n    Erro Absoluto = "<<abs_error;      
-                
-                cout<<defaultfloat<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
-                menu();*/
 
             break;
 
@@ -190,16 +171,6 @@ void regraTrapezio(){
                 foreseen_erro = derivative_and_error();
 
                 integral = ((2*sum_of_fx)+  ((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*((height/num_trap)/2);
-                /*cout<<"\n    Integral = "<<integral;
-
-
-                cout<<fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
-
-                abs_error=integral-real_integral_value;
-                cout<<"\n    Erro Absoluto = "<<abs_error;      
-                
-                cout<<defaultfloat<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
-                menu();*/
 
             break;
 
@@ -348,7 +319,7 @@ float derivative_and_error(){
 
     switch(decisao_main){
 
-            case 1://  for a!=0 --> f"(x)=  a*2       for a==0 ---> f"(x)= 0            
+            case 1://  poli           
 
                 if(a!=0){
                     error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*(a*2);
@@ -362,7 +333,7 @@ float derivative_and_error(){
             break;
 
 
-            case 2: //
+            case 2: //  raci
 
                 if((a!=0&&a2!=0) || (a==0&&a2!=0) || (a!=0&&a2==0)){
                     cout<<"\n    Este programa nao e capaz de realizar o calculo de f\"(x)";
@@ -388,7 +359,7 @@ float derivative_and_error(){
             break;
 
 
-            case 3:
+            case 3: //exp
 
                 if(a==0||b==0){
                     deriv =0;
