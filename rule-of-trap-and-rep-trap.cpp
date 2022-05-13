@@ -103,26 +103,28 @@ void regraTrapezio(){
 
             case 1: /* Polinomial */
                 integral = (((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c))) * (height / 2);
-                cout<<"\n    integral = "<<integral;
+                //cout<<"\n    integral = "<<integral;
                 //menu();
 
             break;
 
             case 2: /* Racional */
                 integral = ((((a*pow(x1,2))+(b*x1)+(c))/((a2*pow(x1,2))+(b2*x1)+(c2)))+(((a*pow(x2,2))+(b*x2)+(c))/((a2*pow(x2,2))+(b2*x2)+(c2)))) * (height / 2);
-                cout<<"\n    integral = "<<integral;
+                //cout<<"\n    integral = "<<integral;
                 //menu();
 
             break;
 
             case 3: /* Exponencial */
                 integral = (((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*(height/2);
-                cout<<"\n    integral = "<<integral;
+                //cout<<"\n    integral = "<<integral;
                 //menu();
 
             break;
 
         }
+        foreseen_erro = derivative_and_error();
+
         cout<<"\n    Integral = "<<integral;
 
 
@@ -145,7 +147,8 @@ void regraTrapezio(){
                    x_values = (i*(height/num_trap))+x1;
                    sum_of_fx = ((a*pow(x_values,2))+(b*x_values)+(c)) + sum_of_fx;
                 }
-                
+                //foreseen_erro = derivative_and_error();
+
                 integral = ((2*sum_of_fx)+((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c)))*((height/num_trap)/2);
 
             break;
@@ -156,7 +159,7 @@ void regraTrapezio(){
                    x_values = (i*(height/num_trap))+x1;
                    sum_of_fx = (((a*pow(x_values,2))+(b*x_values)+(c))/((a2*pow(x_values,2))+(b2*x_values)+(c2))) + sum_of_fx;
                 }
-                foreseen_erro = derivative_and_error();
+                //foreseen_erro = derivative_and_error();
 
                 integral = ((2*sum_of_fx) + (((a*pow(x1,2))+(b*x1)+(c))/((a2*pow(x1,2))+(b2*x1)+(c2))) + (((a*pow(x2,2))+(b*x2)+(c))/((a2*pow(x2,2))+(b2*x2)+(c2)))) * ((height/num_trap)/2);
 
@@ -168,7 +171,7 @@ void regraTrapezio(){
                    x_values = (i*(height/num_trap))+x1;
                    sum_of_fx = (((a*exp(b*x_values))+c)) + sum_of_fx;
                 }
-                foreseen_erro = derivative_and_error();
+                //foreseen_erro = derivative_and_error();
 
                 integral = ((2*sum_of_fx)+  ((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*((height/num_trap)/2);
 
@@ -176,8 +179,9 @@ void regraTrapezio(){
 
         }
 
+            foreseen_erro = derivative_and_error();
+            
             cout<<"\n    Integral = "<<integral;
-
 
             cout<<fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
 
@@ -336,8 +340,8 @@ float derivative_and_error(){
             case 2: //  raci
 
                 if((a!=0&&a2!=0) || (a==0&&a2!=0) || (a!=0&&a2==0)){
-                    cout<<"\n    Este programa nao e capaz de realizar o calculo de f\"(x)";
-                    cout<<"\n    Insira o valor de f\"(x) em que x resulte no maior |f(x)|\n\n    ---> ";cin>>deriv; //verify if is supposed to be the max fx or |fx|
+                    cout<<"\n    Este programa nao e capaz de realizar o calculo de f\"(x) para esta funcao";
+                    cout<<"\n    Insira o valor maximo de |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>deriv; //verify if is supposed to be the max fx or |fx|
 
                     if(deriv<0){
                         deriv=deriv*-1;
@@ -346,8 +350,8 @@ float derivative_and_error(){
                     error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*deriv;
                     return error_study;
                     
-                }else{// a==0 && a2==0 (f'*g-g'*f)/()
-                    cout<<"\n    Insira o valor de x que resulte no maior |f(x)| dentro do intervalo\n\n    ---> ";cin>>x_for_max_fx;
+                }else if(a==0 && a2==0){
+                    cout<<"\n    Insira o valor de x que resulte no maior |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>x_for_max_fx;
 
                     gx = (b2*x_for_max_fx)+c2; 
                     deriv = ((b*c2) - (b2*c)) / pow(gx,2); 
@@ -364,7 +368,7 @@ float derivative_and_error(){
                 if(a==0||b==0){
                     deriv =0;
                 }else if(a!=0 && b!=0){
-                    cout<<"\n    Insira o valor de x que resulte no maior |f(x)| dentro do intervalo\n\n    ---> ";cin>>x_for_max_fx;
+                    cout<<"\n    Insira o valor de x que resulte no maior |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>x_for_max_fx;
                     deriv = (a*b*b)*exp(b*x_for_max_fx);
                 }
                 error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*deriv;
