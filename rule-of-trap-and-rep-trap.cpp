@@ -133,7 +133,7 @@ void regraTrapezio(){
         abs_error=integral-real_integral_value;
         cout<<"\n    Erro Absoluto = "<<abs_error;      
                 
-        cout<<defaultfloat<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+        cout<<fixed<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
         menu();
 
     }else{/* REGRA TRAPEZIO REPETIDO */
@@ -188,7 +188,7 @@ void regraTrapezio(){
             abs_error=integral-real_integral_value;
             cout<<"\n    Erro Absoluto = "<<abs_error;      
                 
-            cout<<defaultfloat<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+            cout<<fixed<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
             menu();
 
     }
@@ -351,10 +351,10 @@ float derivative_and_error(){
                     return error_study;
                     
                 }else if(a==0 && a2==0){
-                    cout<<"\n    Insira o valor de x que resulte no maior |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>x_for_max_fx;
+                    cout<<"\n    Insira o valor de x que resulte no maior\n    |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>x_for_max_fx;
 
-                    gx = (b2*x_for_max_fx)+c2; 
-                    deriv = ((b*c2) - (b2*c)) / pow(gx,2); 
+                    gx = pow(((b2*x_for_max_fx)+c2),3); 
+                    deriv = (2*b2*((b*c2)-(c*b2))) / gx; 
 
                     error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*deriv;
                     return error_study;
@@ -368,7 +368,7 @@ float derivative_and_error(){
                 if(a==0||b==0){
                     deriv =0;
                 }else if(a!=0 && b!=0){
-                    cout<<"\n    Insira o valor de x que resulte no maior |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>x_for_max_fx;
+                    cout<<"\n    Insira o valor de x que resulte no maior\n    |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>x_for_max_fx;
                     deriv = (a*b*b)*exp(b*x_for_max_fx);
                 }
                 error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*deriv;
