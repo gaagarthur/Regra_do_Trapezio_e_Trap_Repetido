@@ -3,7 +3,6 @@
 #include<stdlib.h>
 #include<iomanip>
 
-using namespace std;
 
 void regraTrapezio();
 void polinomial();
@@ -23,9 +22,10 @@ float a, b, c, a2, b2, c2, height, x1, x2, root_value[2], delta;
 int main(){
 
 
-    cout<<"\n\n |=====================================|\n |          Regra do Trapezio          |\n |         e Trapezio Repetido         |\n";
-    cout<<" |=====================================|"<<endl;
-    cout<<"\n    Funcoes Afim ou Quadratica | 1 |\n    Funcao Racional            | 2 |\n    Funcao Exponencial         | 3 |\n\n    ---> "; cin>>decisao_main;
+    std::cout<<"\n\n |=====================================|\n |          Regra do Trapezio          |\n |         e Trapezio Repetido         |\n";
+    std::cout<<" |=====================================|"<<std::endl;
+    std::cout<<"\n    Funcoes Afim ou Quadratica | 1 |\n    Funcao Racional            | 2 |\n    Funcao Exponencial         | 3 |\n\n    ---> "; 
+    std::cin>>decisao_main;
 
     switch(decisao_main){
 
@@ -42,7 +42,7 @@ int main(){
         break;
 
     default: 
-    //cout<<"\n\n    Opcao Invalida!\n";
+    //std::cout<<"\n\n    Opcao Invalida!\n";
     menu();
 
     }
@@ -53,11 +53,11 @@ void regraTrapezio(){
 
     float integral, sum_of_fx=0, x_values, real_integral_value, foreseen_erro, abs_error;
 
-    cout<<"\n    Digite primeiro valor do intervalo: ";cin >> x1;
-    cout<<"    Digite segundo  valor do intervalo: ";cin >> x2;
+    std::cout<<"\n    Digite primeiro valor do intervalo: ";std::cin >> x1;
+    std::cout<<"    Digite segundo  valor do intervalo: ";std::cin >> x2;
     height=x2-x1;
 
-    cout<<"\n    Digite o valor real da integral: ";cin >> real_integral_value;
+    std::cout<<"\n    Digite o valor real da integral: ";std::cin >> real_integral_value;
     
 
     if(decisao_main==2){
@@ -68,24 +68,24 @@ void regraTrapezio(){
 
                 if(((root_value[0]>=x1&&root_value[0]<=x2)||(root_value[0]>=x2&&root_value[0]<=x1))||((root_value[1]>=x1&&root_value[1]<=x2)||(root_value[1]>=x2&&root_value[1]<=x1))){ 
                     /* checking if there's a asymptote located inside of the interval*/
-                    cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
+                    std::cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
                     menu();
                 }
             }else if((root_value[0]==root_value[1])&&((root_value[0]>=x1&&root_value[0]<=x2)||(root_value[0]>=x2&&root_value[0]<=x1))){               
 
-                    cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
+                    std::cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
                     menu();
                 
             }
         }else if((a==0)&&((root_value[0]>=x1&&root_value[0]<=x2)||(root_value[0]>=x2&&root_value[0]<=x1))){
-            cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
+            std::cout<<"\n    Esta funcao apresenta uma assintota dentro do intervalo fornecido\n    Este programa nao esta preparado para fazer tal calculo\n";
             menu();
         }
     }
 
 
     if(x1==x2){
-        cout<<"\n    Os valores entrados resultam em uma integral = 0";
+        std::cout<<"\n    Os valores entrados resultam em uma integral = 0";
         menu();
     }
     if(height<0){
@@ -103,21 +103,21 @@ void regraTrapezio(){
 
             case 1: /* Polinomial */
                 integral = (((a*pow(x1,2))+(b*x1)+(c)) + ((a*pow(x2,2))+(b*x2)+(c))) * (height / 2);
-                //cout<<"\n    integral = "<<integral;
+                //std::cout<<"\n    integral = "<<integral;
                 //menu();
 
             break;
 
             case 2: /* Racional */
                 integral = ((((a*pow(x1,2))+(b*x1)+(c))/((a2*pow(x1,2))+(b2*x1)+(c2)))+(((a*pow(x2,2))+(b*x2)+(c))/((a2*pow(x2,2))+(b2*x2)+(c2)))) * (height / 2);
-                //cout<<"\n    integral = "<<integral;
+                //std::cout<<"\n    integral = "<<integral;
                 //menu();
 
             break;
 
             case 3: /* Exponencial */
                 integral = (((a*exp(b*x1))+c)+(((a*exp(b*x2))+c)))*(height/2);
-                //cout<<"\n    integral = "<<integral;
+                //std::cout<<"\n    integral = "<<integral;
                 //menu();
 
             break;
@@ -125,15 +125,15 @@ void regraTrapezio(){
         }
         foreseen_erro = derivative_and_error();
 
-        cout<<"\n    Integral = "<<integral;
+        std::cout<<"\n    Integral = "<<integral;
 
 
-        cout<<fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
+        std::cout<<std::fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
 
         abs_error=integral-real_integral_value;
-        cout<<"\n    Erro Absoluto = "<<abs_error;      
+        std::cout<<"\n    Erro Absoluto = "<<abs_error;      
                 
-        cout<<fixed<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+        std::cout<<std::fixed<<std::setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
         menu();
 
     }else{/* REGRA TRAPEZIO REPETIDO */
@@ -181,14 +181,14 @@ void regraTrapezio(){
 
             foreseen_erro = derivative_and_error();
             
-            cout<<"\n    Integral = "<<integral;
+            std::cout<<"\n    Integral = "<<integral;
 
-            cout<<fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
+            std::cout<<std::fixed<<"\n    Erro Previsto <= "<<foreseen_erro;
 
             abs_error=integral-real_integral_value;
-            cout<<"\n    Erro Absoluto = "<<abs_error;      
+            std::cout<<"\n    Erro Absoluto = "<<abs_error;      
                 
-            cout<<fixed<<setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
+            std::cout<<std::fixed<<std::setprecision(3)<<"\n    Erro Relativo = "<<(abs_error/real_integral_value)*100<<"%";
             menu();
 
     }
@@ -200,14 +200,14 @@ void polinomial(){
 
 
 
-    cout<<"\n\n |=====================================|\n |      Para funcoes  polinomiais      |\n |    Para 1 grau  comece com a = 0    |"<<endl<<endl;
+    std::cout<<"\n\n |=====================================|\n |      Para funcoes  polinomiais      |\n |    Para 1 grau  comece com a = 0    |"<<std::endl<<std::endl;
 
-    cout<<"    Digite valor de a: ";cin >> a;
-    cout<<"    Digite valor de b: ";cin >> b;
-    cout<<"    Digite valor de c: ";cin >> c;
+    std::cout<<"    Digite valor de a: ";std::cin >> a;
+    std::cout<<"    Digite valor de b: ";std::cin >> b;
+    std::cout<<"    Digite valor de c: ";std::cin >> c;
 
     if(a==0&&b==0&&c==0){
-        cout<<"\n    Os valores entrados resultam em uma integral = 0";
+        std::cout<<"\n    Os valores entrados resultam em uma integral = 0";
         menu();
     }
 
@@ -217,25 +217,25 @@ void polinomial(){
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 void racional(){
 
-    cout<<"\n\n |=======================================|\n |Para funcoes racionais ate segundo grau|\n |    Para 1  grau  comece com  a = 0    |"<<endl<<endl;
+    std::cout<<"\n\n |=======================================|\n |Para funcoes racionais ate segundo grau|\n |    Para 1  grau  comece com  a = 0    |"<<std::endl<<std::endl;
 
-	cout<<"\n    Dividendo:\n\n";
-    cout<<"    Digite valor de a: ";cin >> a;
-    cout<<"    Digite valor de b: ";cin >> b;
-    cout<<"    Digite valor de c: ";cin >> c;
+	std::cout<<"\n    Dividendo:\n\n";
+    std::cout<<"    Digite valor de a: ";std::cin >> a;
+    std::cout<<"    Digite valor de b: ";std::cin >> b;
+    std::cout<<"    Digite valor de c: ";std::cin >> c;
     
     if(a==0&&b==0&&c==0){
-        cout<<"\n    Os valores entrados resultam em uma integral = 0";
+        std::cout<<"\n    Os valores entrados resultam em uma integral = 0";
         menu();
     }
 
-    cout<<"\n\n    Divisor:\n\n";
-    cout<<"    Digite valor de a: ";cin >> a2;
-    cout<<"    Digite valor de b: ";cin >> b2;
-    cout<<"    Digite valor de c: ";cin >> c2;
+    std::cout<<"\n\n    Divisor:\n\n";
+    std::cout<<"    Digite valor de a: ";std::cin >> a2;
+    std::cout<<"    Digite valor de b: ";std::cin >> b2;
+    std::cout<<"    Digite valor de c: ";std::cin >> c2;
     
     if(a2==0&&b2==0&&c2==0){
-    	cout<<"    \n\nA funcao tem 0 como denominador e resulta em uma indeterminacao matematica\n";
+    	std::cout<<"    \n\nA funcao tem 0 como denominador e resulta em uma indeterminacao matematica\n";
     	menu();
 	}
 
@@ -245,15 +245,15 @@ void racional(){
 //000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 void exponencial(){
 
-    cout<<"\n\n |====================================|\n";
-	cout<<" |      Para funcoes exponenciais     |\n\n    vamos usar:\n\n    f(x) = ('a' vezes 'e' elevado a ('b'vezes 'x')) mais 'c' "<<"\n    f(x) = (a*e^(bx))+c ";
+    std::cout<<"\n\n |====================================|\n";
+	std::cout<<" |      Para funcoes exponenciais     |\n\n    vamos usar:\n\n    f(x) = ('a' vezes 'e' elevado a ('b'vezes 'x')) mais 'c' "<<"\n    f(x) = (a*e^(bx))+c ";
 	
-	cout<<"\n\n    Digite valor de a: ";cin >> a;
-    cout<<"    Digite valor de b: ";cin >> b;
-    cout<<"    Digite valor de c: ";cin >> c;
+	std::cout<<"\n\n    Digite valor de a: ";std::cin >> a;
+    std::cout<<"    Digite valor de b: ";std::cin >> b;
+    std::cout<<"    Digite valor de c: ";std::cin >> c;
 
     if(a==0&&c==0){
-        cout<<"\n    Os valores entrados resultam em uma integral = 0";
+        std::cout<<"\n    Os valores entrados resultam em uma integral = 0";
         menu();
     }
     methodChoice();
@@ -264,7 +264,7 @@ void methodChoice(){
 
     char method;
 
-    cout<<"\n    Qual metodo Voce quer usar?\n\n    |    Trapezio     | = T\n    |Trapezio Repetido| = R \n\n    ---> "; cin>>method;
+    std::cout<<"\n    Qual metodo Voce quer usar?\n\n    |    Trapezio     | = T\n    |Trapezio Repetido| = R \n\n    ---> "; std::cin>>method;
 
     method = toupper(method);
 
@@ -273,21 +273,21 @@ void methodChoice(){
         case 'T':
 
             num_trap=1;
-            cout<<"\n    Voce escolheu metodo do Trapezio\n";
+            std::cout<<"\n    Voce escolheu metodo do Trapezio\n";
             regraTrapezio();
 
             break;
 
         case 'R':
 
-            cout<<"\n    Voce escolheu metodo do Trapezio Repetido\n";
-            cout<<"\n    Digite numero de trapezeis: ";cin >> num_trap;
+            std::cout<<"\n    Voce escolheu metodo do Trapezio Repetido\n";
+            std::cout<<"\n    Digite numero de trapezeis: ";std::cin >> num_trap;
 
             while(num_trap<=0){
                 
-                cout<<"\n    Numero de trapezeis invalido (escolha um numero > 0)\n";
+                std::cout<<"\n    Numero de trapezeis invalido (escolha um numero > 0)\n";
 
-                cout<<"\n    Digite numero de trapezeis: ";cin >> num_trap;
+                std::cout<<"\n    Digite numero de trapezeis: ";std::cin >> num_trap;
 
             }
 
@@ -297,7 +297,7 @@ void methodChoice(){
 
         default:
 
-            cout<<"\n    opcao nao valiva";
+            std::cout<<"\n    opcao nao valiva";
             methodChoice();
     }
 
@@ -340,8 +340,8 @@ float derivative_and_error(){
             case 2: //  raci
 
                 if((a!=0&&a2!=0) || (a==0&&a2!=0) || (a!=0&&a2==0)){
-                    cout<<"\n    Este programa nao e capaz de realizar o calculo de f\"(x) para esta funcao";
-                    cout<<"\n    Insira o valor maximo de |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>deriv; //verify if is supposed to be the max fx or |fx|
+                    std::cout<<"\n    Este programa nao e capaz de realizar o calculo de f\"(x) para esta funcao";
+                    std::cout<<"\n    Insira o valor maximo de |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";std::cin>>deriv; //verify if is supposed to be the max fx or |fx|
 
                     if(deriv<0){
                         deriv=deriv*-1;
@@ -351,7 +351,7 @@ float derivative_and_error(){
                     return error_study;
                     
                 }else if(a==0 && a2==0){
-                    cout<<"\n    Insira o valor de x que resulte no maior\n    |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>x_for_max_fx;
+                    std::cout<<"\n    Insira o valor de x que resulte no maior\n    |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";std::cin>>x_for_max_fx;
 
                     gx = pow(((b2*x_for_max_fx)+c2),3); 
                     deriv = (2*b2*((b*c2)-(c*b2))) / gx; 
@@ -368,7 +368,7 @@ float derivative_and_error(){
                 if(a==0||b==0){
                     deriv =0;
                 }else if(a!=0 && b!=0){
-                    cout<<"\n    Insira o valor de x que resulte no maior\n    |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";cin>>x_for_max_fx;
+                    std::cout<<"\n    Insira o valor de x que resulte no maior\n    |f\"(x)| dentro do intervalo ["<<x1<<", "<<x2<<"]\n\n    ---> ";std::cin>>x_for_max_fx;
                     deriv = (a*b*b)*exp(b*x_for_max_fx);
                 }
                 error_study = (pow(x2-x1,3)/(12*pow(num_trap,2)))*deriv;
@@ -383,7 +383,7 @@ float derivative_and_error(){
 int menu(){
 
     char opera;
-    cout<<"\n\n    Deseja realizar outra operacao?\n\n           |Sim = S|    |Nao = N|\n\n    ---> "; cin>>opera;
+    std::cout<<"\n\n    Deseja realizar outra operacao?\n\n           |Sim = S|    |Nao = N|\n\n    ---> "; std::cin>>opera;
 
     opera=toupper(opera);
     switch(opera){
@@ -398,7 +398,7 @@ int menu(){
             break;
 
         default:
-            cout<<"\n    Escolha uma das opcoes\n";
+            std::cout<<"\n    Escolha uma das opcoes\n";
             menu();
     }
 
